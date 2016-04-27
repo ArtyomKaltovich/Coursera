@@ -1,4 +1,8 @@
-import pandas, numpy, scipy.stats
+import pandas, numpy, scipy.stats, os, sys
+PACKAGE_PARENT = '..'
+SCRIPT_DIR = os.path.dirname(os.path.realpath(os.path.join(os.getcwd(), os.path.expanduser(__file__))))
+sys.path.append(os.path.normpath(os.path.join(SCRIPT_DIR, PACKAGE_PARENT)))
+from mylib import io_yandex
 
 def get_procent(dataframe, colomn_name, value):
     s = dataframe.loc[dataframe[colomn_name] == value]
@@ -7,37 +11,31 @@ def get_procent(dataframe, colomn_name, value):
     return s
 
 
-def print_result(s, file_name):
-    print (s)
-    with open(file_name, "w") as text_file:
-        text_file.write(s)
-
-
 def two_digit_round(s):
     return "{0:.2f}".format(s)
 
-data = pandas.read_csv('titanic.csv', index_col='PassengerId')
+data = io_yandex.load_titanic_to_dataframe()
 print (list(data.columns.values))
 
 s = data['Sex'].value_counts()
 s = str(s[0]) + ' ' + str(s[1])
-print_result(s, '1.txt')
+io_yandex.print_result(s, '1.txt')
 
 s = get_procent(data, 'Survived', 1)
-print_result(s, '2.txt')
+io_yandex.print_result(s, '2.txt')
 
 s = get_procent(data, 'Pclass', 1)
-print_result(s, '3.txt')
+io_yandex.print_result(s, '3.txt')
 
 s = data.loc[data.Age.notnull()]
 s = s['Age']
 s = str(two_digit_round(float(numpy.mean(s, axis = 0)))) + ' ' \
      + str(two_digit_round(float(numpy.median(s, axis = 0))))
-print_result(s, '4.txt')
+io_yandex.print_result(s, '4.txt')
 
 s = scipy.stats.pearsonr(data['SibSp'], data['Parch'])
 s = two_digit_round(s[0])
-print_result(s, '5.txt')
+io_yandex.print_result(s, '5.txt')
 
 s = data.loc[data['Sex'] == 'female']
 s = s['Name']
@@ -66,4 +64,4 @@ new_data = pandas.DataFrame(l, columns = ['Name'])
 #grouped = new_data.groupby('Name').count()
 grouped = pandas.DataFrame({'count' : new_data.groupby( ['Name'] ).size()}).reset_index().sort_values('count', ascending=False)
 #print(new_data['Name'].value_counts())
-print_result(grouped.Name.iloc[0], '6.txt')
+io_yandex.print_result(grouped.Name.iloc[0], '6.txt')
