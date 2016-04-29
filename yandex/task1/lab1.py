@@ -7,16 +7,13 @@ from mylib import io_yandex
 def get_procent(dataframe, colomn_name, value):
     s = dataframe.loc[dataframe[colomn_name] == value]
     s = float(len(s.index)) / float(len(dataframe.index)) * 100
-    s = two_digit_round(s)
+    s = io_yandex.two_digit_round(s)
     return s
 
 
-def two_digit_round(s):
-    return "{0:.2f}".format(s)
-
 data = io_yandex.load_titanic_to_dataframe()
 print (list(data.columns.values))
-
+len(df.index)
 s = data['Sex'].value_counts()
 s = str(s[0]) + ' ' + str(s[1])
 io_yandex.print_result(s, '1.txt')
@@ -29,12 +26,12 @@ io_yandex.print_result(s, '3.txt')
 
 s = data.loc[data.Age.notnull()]
 s = s['Age']
-s = str(two_digit_round(float(numpy.mean(s, axis = 0)))) + ' ' \
-     + str(two_digit_round(float(numpy.median(s, axis = 0))))
+s = str(io_yandex.two_digit_round(float(numpy.mean(s, axis = 0)))) + ' ' \
+     + str(io_yandex.two_digit_round(float(numpy.median(s, axis = 0))))
 io_yandex.print_result(s, '4.txt')
 
 s = scipy.stats.pearsonr(data['SibSp'], data['Parch'])
-s = two_digit_round(s[0])
+s = io_yandex.two_digit_round(s[0])
 io_yandex.print_result(s, '5.txt')
 
 s = data.loc[data['Sex'] == 'female']

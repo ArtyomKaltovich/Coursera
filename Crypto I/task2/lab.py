@@ -10,7 +10,7 @@ def decrypt(key, ciphertext, mode):
     #ciphertext = padding(ciphertext)
     encobj = getAES(key, mode, iv)
     plaintext = encobj.decrypt(ciphertext)
-    print("\n", key, iv)    print(ciphertext)
+    print("\n", key, iv)
     print(plaintext)
 
 def getAES(key, mode, iv, counter=None):

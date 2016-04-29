@@ -14,9 +14,9 @@ def prepare_data(df):
     return df
 
 
-def create_decision_tree():
+def create_decision_tree(dataframe, value_column):
     clf = tree.DecisionTreeClassifier(random_state=241)
-    return clf.fit(df, is_survived) 
+    return clf.fit(dataframe, value_column) 
 
 
 def calculate_most_important_value(df, importances):
@@ -34,11 +34,10 @@ def calculate_most_important_value(df, importances):
     io_yandex.print_result(result, "1b.txt")
 
 
-df = io_yandex.load_titanic_to_dataframe()
+df = io_yandex.load_titanic_to_dataframe()  
 df = prepare_data(df)
-is_survived = df['Survived']
-df = df.drop('Survived', axis=1)
-clf = create_decision_tree()
+is_survived, df = io_yandex.get_value_column(df,'Survived')
+clf = create_decision_tree(df, is_survived)
 importances = clf.feature_importances_
 print(importances)
-calculate_most_important_value(df, importances)
+calculate_most_important_value(df, importances) #Fare Sex
