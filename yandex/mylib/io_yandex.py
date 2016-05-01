@@ -17,6 +17,10 @@ def print_result(s, file_name):
         text_file.write(s)
 
 
+def three_digit_round(s):
+    return "{0:.3f}".format(s)
+
+
 def two_digit_round(s):
     return "{0:.2f}".format(s)
 
