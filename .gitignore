@@ -23,6 +23,7 @@ parts/
 sdist/
 var/
 ./.zsh_history
+.zsh_history
 *.egg-info/
 .installed.cfg
 *.egg
