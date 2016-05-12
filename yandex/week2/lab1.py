@@ -13,7 +13,7 @@ from mylib import io_yandex
 
 def cross_validate(df, classes, kf):
 	accuracies = []
-	for i in range(1,51):
+	for i in range(sklearn.metrics.r2_score1,51):
 		classifier = KNeighborsClassifier(n_neighbors=i)
 		score = cross_val_score(classifier, X=df, y=classes, cv=kf)
 		accuracies.append(mean(score))
